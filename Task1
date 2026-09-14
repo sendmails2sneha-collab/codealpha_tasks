@@ -1,0 +1,35 @@
+import random
+words = ["python", "java", "apple", "kolkata", "laptop"]
+word = random.choice(words)
+guessed = ["_"] * len(word)
+lives = 6
+used_letters = []
+
+print("Welcome to Hangman!")
+print(" ".join(guessed))
+
+while lives > 0 and "_" in guessed:
+    guess = input("Guess a letter: ").lower()
+
+    if guess in used_letters:
+        print("You already guessed that letter!")
+        continue
+
+    used_letters.append(guess)
+
+    if guess in word:
+        print(f"Good! '{guess}' is in the word.")
+        for i in range(len(word)):
+            if word[i] == guess:
+                guessed[i] = guess
+    else:
+        lives -= 1
+        print(f"Wrong! Lives left: {lives}")
+
+    print(" ".join(guessed))
+    print(f"Used letters: {used_letters}")
+
+if "_" not in guessed:
+    print(f"You WON! The word was {word}")
+else:
+    print(f"You LOST! The word was {word}")
